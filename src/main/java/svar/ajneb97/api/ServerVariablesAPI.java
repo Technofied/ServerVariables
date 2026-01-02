@@ -8,6 +8,7 @@ import svar.ajneb97.model.structure.ListVariable;
 import svar.ajneb97.model.structure.StringVariable;
 
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class ServerVariablesAPI {
@@ -170,12 +171,9 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            values.append(list.get(i));
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
+            values.add(value);
         }
         return values.toString();
     }
@@ -189,12 +187,9 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            values.append(list.get(i));
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
+            values.add(value);
         }
         return values.toString();
     }
@@ -208,12 +203,9 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            values.append(list.get(i));
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
+            values.add(value);
         }
         return values.toString();
     }
@@ -227,16 +219,12 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            String value = list.get(i);
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
             if(result.getVariable() != null){
-                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
             }else{
-                values.append(value);
+                values.add(value);
             }
         }
         return values.toString();
@@ -251,16 +239,12 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            String value = list.get(i);
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
             if(result.getVariable() != null){
-                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
             }else{
-                values.append(value);
+                values.add(value);
             }
         }
         return values.toString();
@@ -275,16 +259,12 @@ public class ServerVariablesAPI {
         if(list.isEmpty()){
             return "";
         }
-        StringBuilder values = new StringBuilder();
-        for(int i = 0; i < list.size(); i++){
-            if(i > 0){
-                values.append(",");
-            }
-            String value = list.get(i);
+        StringJoiner values = new StringJoiner(",");
+        for(String value : list){
             if(result.getVariable() != null){
-                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
             }else{
-                values.append(value);
+                values.add(value);
             }
         }
         return values.toString();
