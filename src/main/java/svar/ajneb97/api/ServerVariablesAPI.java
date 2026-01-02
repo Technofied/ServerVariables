@@ -6,6 +6,7 @@ import svar.ajneb97.model.StringVariableResult;
 import svar.ajneb97.model.ServerVariablesPlayer;
 import svar.ajneb97.model.structure.ListVariable;
 import svar.ajneb97.model.structure.StringVariable;
+import svar.ajneb97.model.structure.Variable;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -164,38 +165,35 @@ public class ServerVariablesAPI {
 
     public static String getListVariableAllValues(UUID uuid, String variableName){
         ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(uuid, variableName);
-        if(result.isError() || result.getResultValue() == null){
-            return "";
-        }
-        List<String> list = result.getResultValue();
-        if(list.isEmpty()){
-            return "";
-        }
-        StringJoiner values = new StringJoiner(",");
-        for(String value : list){
-            values.add(value);
-        }
-        return values.toString();
+        return joinListValues(result);
     }
 
     public static String getListVariableAllValues(String playerName, String variableName){
         ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(playerName, variableName);
-        if(result.isError() || result.getResultValue() == null){
-            return "";
-        }
-        List<String> list = result.getResultValue();
-        if(list.isEmpty()){
-            return "";
-        }
-        StringJoiner values = new StringJoiner(",");
-        for(String value : list){
-            values.add(value);
-        }
-        return values.toString();
+        return joinListValues(result);
     }
 
     public static String getListVariableAllValues(String variableName){
         ListVariableResult result = plugin.getVariablesManager().getListVariablesManager().getListVariableValue(null, variableName, false);
+        return joinListValues(result);
+    }
+
+    public static String getListVariableAllValuesDisplay(UUID uuid, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(uuid, variableName);
+        return joinListValuesDisplay(result);
+    }
+
+    public static String getListVariableAllValuesDisplay(String playerName, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(playerName, variableName);
+        return joinListValuesDisplay(result);
+    }
+
+    public static String getListVariableAllValuesDisplay(String variableName){
+        ListVariableResult result = plugin.getVariablesManager().getListVariablesManager().getListVariableValue(null, variableName, false);
+        return joinListValuesDisplay(result);
+    }
+
+    private static String joinListValues(ListVariableResult result){
         if(result.isError() || result.getResultValue() == null){
             return "";
         }
@@ -210,8 +208,7 @@ public class ServerVariablesAPI {
         return values.toString();
     }
 
-    public static String getListVariableAllValuesDisplay(UUID uuid, String variableName){
-        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(uuid, variableName);
+    private static String joinListValuesDisplay(ListVariableResult result){
         if(result.isError() || result.getResultValue() == null){
             return "";
         }
@@ -220,49 +217,10 @@ public class ServerVariablesAPI {
             return "";
         }
         StringJoiner values = new StringJoiner(",");
+        Variable variable = result.getVariable();
         for(String value : list){
-            if(result.getVariable() != null){
-                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
-            }else{
-                values.add(value);
-            }
-        }
-        return values.toString();
-    }
-
-    public static String getListVariableAllValuesDisplay(String playerName, String variableName){
-        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(playerName, variableName);
-        if(result.isError() || result.getResultValue() == null){
-            return "";
-        }
-        List<String> list = result.getResultValue();
-        if(list.isEmpty()){
-            return "";
-        }
-        StringJoiner values = new StringJoiner(",");
-        for(String value : list){
-            if(result.getVariable() != null){
-                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
-            }else{
-                values.add(value);
-            }
-        }
-        return values.toString();
-    }
-
-    public static String getListVariableAllValuesDisplay(String variableName){
-        ListVariableResult result = plugin.getVariablesManager().getListVariablesManager().getListVariableValue(null, variableName, false);
-        if(result.isError() || result.getResultValue() == null){
-            return "";
-        }
-        List<String> list = result.getResultValue();
-        if(list.isEmpty()){
-            return "";
-        }
-        StringJoiner values = new StringJoiner(",");
-        for(String value : list){
-            if(result.getVariable() != null){
-                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+            if(variable != null){
+                values.add(plugin.getVariablesManager().getDisplayFromVariableValue(variable, value));
             }else{
                 values.add(value);
             }
