@@ -161,6 +161,135 @@ public class ServerVariablesAPI {
         return result.getResultValue().contains(value);
     }
 
+    public static String getListVariableAllValues(UUID uuid, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(uuid, variableName);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            values.append(list.get(i));
+        }
+        return values.toString();
+    }
+
+    public static String getListVariableAllValues(String playerName, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(playerName, variableName);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            values.append(list.get(i));
+        }
+        return values.toString();
+    }
+
+    public static String getListVariableAllValues(String variableName){
+        ListVariableResult result = plugin.getVariablesManager().getListVariablesManager().getListVariableValue(null, variableName, false);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            values.append(list.get(i));
+        }
+        return values.toString();
+    }
+
+    public static String getListVariableAllValuesDisplay(UUID uuid, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(uuid, variableName);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            String value = list.get(i);
+            if(result.getVariable() != null){
+                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+            }else{
+                values.append(value);
+            }
+        }
+        return values.toString();
+    }
+
+    public static String getListVariableAllValuesDisplay(String playerName, String variableName){
+        ListVariableResult result = plugin.getPlayerVariablesManager().getListVariableValue(playerName, variableName);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            String value = list.get(i);
+            if(result.getVariable() != null){
+                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+            }else{
+                values.append(value);
+            }
+        }
+        return values.toString();
+    }
+
+    public static String getListVariableAllValuesDisplay(String variableName){
+        ListVariableResult result = plugin.getVariablesManager().getListVariablesManager().getListVariableValue(null, variableName, false);
+        if(result.isError() || result.getResultValue() == null){
+            return "";
+        }
+        List<String> list = result.getResultValue();
+        if(list.isEmpty()){
+            return "";
+        }
+        StringBuilder values = new StringBuilder();
+        for(int i = 0; i < list.size(); i++){
+            if(i > 0){
+                values.append(",");
+            }
+            String value = list.get(i);
+            if(result.getVariable() != null){
+                values.append(plugin.getVariablesManager().getDisplayFromVariableValue(result.getVariable(), value));
+            }else{
+                values.append(value);
+            }
+        }
+        return values.toString();
+    }
+
     public static ServerVariables getPlugin() {
         return plugin;
     }
